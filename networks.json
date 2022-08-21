@@ -1,0 +1,10 @@
+{
+  "goerli": {
+    "piNFT": {
+      "address": "0x4689ea1F8b7e433fE64959CB94b444f8E1580FC7"
+    },
+    "piMarket": {
+      "address": "0xbb351E564f95aC64942521B2e586554F8EB4BA64"
+    }
+  }
+}

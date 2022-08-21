@@ -1,0 +1,93 @@
+type Nft @entity {
+  id: ID!
+  tokenId: BigInt!
+  blockNumber: BigInt!
+  transactionHash: Bytes!
+  # tokenURI: String!
+  # creator: Bytes!
+  # owner: Bytes!
+  # royalties: Array!
+  createdAt: BigInt!
+  #collection: Collection!
+  sale: Sale
+  bids: [Bid!]
+  piNFT: [Energize!]
+  releaseTokens: [ReleaseToken!]
+}
+
+type Energize @entity {
+  id: ID!
+  # to: Bytes!
+  from: Bytes
+  tokenId: BigInt
+  erc20Contract: Bytes
+  value: BigInt
+}
+
+type ReleaseToken @entity {
+  id: ID!
+  tokenId: BigInt!
+  to: Bytes!
+  erc20Contract: Bytes!
+  value: BigInt!
+}
+
+type ExampleEntity @entity {
+  id: ID!
+  count: BigInt!
+  owner: Bytes! # address
+  approved: Bytes! # address
+}
+type BidExecuted @entity {
+  id: ID!
+  price: BigInt! # uint256
+}
+
+type BidOrderReturn @entity {
+  id: ID!
+  bid_bidId: BigInt! # uint256
+  bid_saleId: BigInt! # uint256
+  bid_sellerAddress: Bytes! # address
+  bid_buyerAddress: Bytes! # address
+  bid_price: BigInt! # uint256
+  bid_withdrawn: Boolean! # bool
+}
+
+type TokenMetaReturn @entity {
+  id: ID!
+  data_saleId: BigInt! # uint256
+  data_tokenContractAddress: Bytes! # address
+  data_tokenId: BigInt! # uint256
+  data_price: BigInt! # uint256
+  data_directSale: Boolean! # bool
+  data_bidSale: Boolean! # bool
+  data_status: Boolean! # bool
+  data_bidStartTime: BigInt! # uint256
+  data_bidEndTime: BigInt! # uint256
+  data_currentOwner: Bytes! # address
+  tokenid: BigInt! # uint256
+}
+
+
+type Sale @entity{
+  id: ID!
+  saleId: BigInt!
+  tokenAddress: Bytes!
+  tokenID: BigInt!
+  price: BigInt!
+  saleType: String!
+  status: Boolean
+  bidStartTime: BigInt
+  bidEndTime: BigInt
+  currentOwner: Bytes!
+}
+
+type Bid @entity{
+  id: ID!
+  bidId: BigInt!
+  saleId: BigInt!
+  sellerAddress: Bytes!
+  buyerAddress: Bytes!
+  price: BigInt!
+  withdrawn: Boolean!
+}

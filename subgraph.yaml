@@ -1,0 +1,65 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: piNFT
+    network: goerli
+    source:
+      address: "0x4689ea1F8b7e433fE64959CB94b444f8E1580FC7"
+      abi: piNFT
+      startBlock: 6000000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - ReceivedERC20
+        - RoyaltiesSetForTokenId
+        - Transfer
+        - TransferERC20
+      abis:
+        - name: piNFT
+          file: ./abis/piNFT.json
+      eventHandlers:
+        # - event: Approval(indexed address,indexed address,indexed uint256)
+        #   handler: handleApproval
+        # - event: ApprovalForAll(indexed address,indexed address,bool)
+        #   handler: handleApprovalForAll
+        - event: ReceivedERC20(indexed address,indexed uint256,indexed address,uint256)
+          handler: handleReceivedERC20
+        # - event: RoyaltiesSetForTokenId(indexed uint256,(indexed address,uint96)[])
+        #   handler: handleRoyaltiesSetForTokenId
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        # - event: TransferERC20(indexed uint256,indexed address,indexed address,uint256)
+        #   handler: handleTransferERC20
+      file: ./src/pi-nft.ts
+  - kind: ethereum
+    name: piMarket
+    network: goerli
+    source:
+      address: "0xbb351E564f95aC64942521B2e586554F8EB4BA64"
+      abi: piMarket
+      startBlock: 6000000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - BidExecuted
+        - BidOrderReturn
+        - TokenMetaReturn
+      abis:
+        - name: piMarket
+          file: ./abis/piMarket.json
+      eventHandlers:
+        # - event: BidExecuted(uint256)
+        #   handler: handleBidExecuted
+        - event: BidOrderReturn((uint256,uint256,address,address,uint256,bool))
+          handler: handleBidOrderReturn
+        - event: TokenMetaReturn((uint256,address,uint256,uint256,bool,bool,bool,uint256,uint256,address),uint256)
+          handler: handleTokenMetaReturn
+      file: ./src/pi-market.ts
